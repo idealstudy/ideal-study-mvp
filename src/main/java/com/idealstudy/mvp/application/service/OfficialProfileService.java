@@ -1,7 +1,7 @@
 package com.idealstudy.mvp.application.service;
 
 import com.idealstudy.mvp.application.dto.OfficialProfileDto;
-import com.idealstudy.mvp.infrastructure.OfficialProfileRepository;
+import com.idealstudy.mvp.infrastructure.repository.OfficialProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

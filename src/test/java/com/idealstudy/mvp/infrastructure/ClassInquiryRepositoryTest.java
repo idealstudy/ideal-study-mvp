@@ -4,6 +4,7 @@ import com.idealstudy.mvp.TestRepositoryUtil;
 import com.idealstudy.mvp.application.dto.classroom.preclass.ClassInquiryDto;
 import com.idealstudy.mvp.application.dto.classroom.preclass.ClassInquiryPageResultDto;
 import com.idealstudy.mvp.enums.classroom.Visibility;
+import com.idealstudy.mvp.infrastructure.repository.preclass.ClassInquiryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -152,6 +152,10 @@ public class JwtUtil {
         return substringToken(req.getHeader(AUTHORIZATION_HEADER));
     }
 
+    public String getAuthorizationHeader(HttpServletRequest req) {
+        return req.getHeader(AUTHORIZATION_HEADER);
+    }
+
     public JwtPayloadDto getPayloadFromToken(String token) {
 
         validateToken(token);

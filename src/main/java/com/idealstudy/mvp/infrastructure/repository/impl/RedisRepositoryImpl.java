@@ -1,4 +1,4 @@
-package com.idealstudy.mvp.infrastructure.impl;
+package com.idealstudy.mvp.infrastructure.repository.impl;
 
 import com.idealstudy.mvp.infrastructure.RedisRepository;
 import lombok.RequiredArgsConstructor;

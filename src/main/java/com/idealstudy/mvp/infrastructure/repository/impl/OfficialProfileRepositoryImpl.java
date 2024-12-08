@@ -1,7 +1,7 @@
-package com.idealstudy.mvp.infrastructure.impl;
+package com.idealstudy.mvp.infrastructure.repository.impl;
 
 import com.idealstudy.mvp.application.dto.OfficialProfileDto;
-import com.idealstudy.mvp.infrastructure.OfficialProfileRepository;
+import com.idealstudy.mvp.infrastructure.repository.OfficialProfileRepository;
 import com.idealstudy.mvp.infrastructure.jpa.entity.OfficialProfileEntity;
 import com.idealstudy.mvp.infrastructure.jpa.entity.member.TeacherEntity;
 import com.idealstudy.mvp.infrastructure.jpa.repository.OfficialProfileJpaRepository;

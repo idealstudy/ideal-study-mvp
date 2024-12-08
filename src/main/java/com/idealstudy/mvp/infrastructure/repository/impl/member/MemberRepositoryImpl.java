@@ -1,10 +1,10 @@
-package com.idealstudy.mvp.infrastructure.impl.member;
+package com.idealstudy.mvp.infrastructure.repository.impl.member;
 
 import com.idealstudy.mvp.application.dto.PageRequestDto;
 import com.idealstudy.mvp.application.dto.PageResultDto;
 import com.idealstudy.mvp.application.dto.member.*;
 import com.idealstudy.mvp.enums.member.MemberError;
-import com.idealstudy.mvp.infrastructure.MemberRepository;
+import com.idealstudy.mvp.infrastructure.repository.MemberRepository;
 import com.idealstudy.mvp.infrastructure.jpa.entity.member.MemberEntity;
 import com.idealstudy.mvp.infrastructure.jpa.entity.member.ParentsEntity;
 import com.idealstudy.mvp.infrastructure.jpa.entity.member.StudentEntity;

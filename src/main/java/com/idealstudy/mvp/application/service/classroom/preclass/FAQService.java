@@ -3,7 +3,7 @@ package com.idealstudy.mvp.application.service.classroom.preclass;
 import com.idealstudy.mvp.application.dto.PageRequestDto;
 import com.idealstudy.mvp.application.dto.classroom.preclass.FAQDto;
 import com.idealstudy.mvp.application.dto.classroom.preclass.FAQPageResultDto;
-import com.idealstudy.mvp.infrastructure.FAQRepository;
+import com.idealstudy.mvp.infrastructure.repository.preclass.FAQRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

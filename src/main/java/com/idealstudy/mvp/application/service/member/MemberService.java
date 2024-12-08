@@ -4,7 +4,7 @@ import com.idealstudy.mvp.application.dto.PageRequestDto;
 import com.idealstudy.mvp.application.dto.member.*;
 import com.idealstudy.mvp.enums.member.Gender;
 import com.idealstudy.mvp.enums.member.Role;
-import com.idealstudy.mvp.infrastructure.MemberRepository;
+import com.idealstudy.mvp.infrastructure.repository.MemberRepository;
 import com.idealstudy.mvp.infrastructure.RedisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

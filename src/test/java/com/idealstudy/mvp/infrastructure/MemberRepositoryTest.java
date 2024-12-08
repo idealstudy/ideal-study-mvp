@@ -6,17 +6,15 @@ import com.idealstudy.mvp.enums.member.Gender;
 import com.idealstudy.mvp.enums.member.Grade;
 import com.idealstudy.mvp.enums.member.Role;
 import com.idealstudy.mvp.enums.member.SchoolRegister;
-import com.idealstudy.mvp.infrastructure.jpa.entity.member.MemberEntity;
+import com.idealstudy.mvp.infrastructure.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
-import java.util.stream.IntStream;
 
 @SpringBootTest
 @Transactional

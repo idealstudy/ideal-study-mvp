@@ -1,6 +1,6 @@
-package com.idealstudy.mvp.infrastructure.impl.classroom;
+package com.idealstudy.mvp.infrastructure.repository.impl.classroom;
 
-import com.idealstudy.mvp.infrastructure.ClassroomRepository;
+import com.idealstudy.mvp.infrastructure.repository.ClassroomRepository;
 import com.idealstudy.mvp.infrastructure.jpa.entity.classroom.ClassroomEntity;
 import com.idealstudy.mvp.infrastructure.jpa.repository.classroom.ClassroomJpaRepository;
 import java.util.List;

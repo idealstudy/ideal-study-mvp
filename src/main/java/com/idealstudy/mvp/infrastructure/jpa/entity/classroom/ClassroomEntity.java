@@ -1,6 +1,7 @@
 package com.idealstudy.mvp.infrastructure.jpa.entity.classroom;
 
 import com.idealstudy.mvp.infrastructure.jpa.entity.BaseEntity;
+import com.idealstudy.mvp.infrastructure.jpa.entity.LikedEntity;
 import com.idealstudy.mvp.infrastructure.jpa.entity.member.StudentEntity;
 import com.idealstudy.mvp.infrastructure.jpa.entity.member.TeacherEntity;
 import jakarta.persistence.Column;
@@ -54,11 +55,12 @@ public class ClassroomEntity extends BaseEntity {
     )
     private List<StudentEntity> students; // 학생ID (수업에 참가)
 
+    @ManyToMany(mappedBy = "classrooms")
+    private List<LikedEntity> likes;
+
     // 아래 필드는 임시 필드로만 추가 TODO : 연관관계 맺어 주어야함
 
     private String posts; // 수업 포스트 관련
-
-    private String likes; // 좋아요 관련
 
     private String enrollments; // 수업 신청 관련
 

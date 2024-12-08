@@ -1,6 +1,7 @@
 package com.idealstudy.mvp.application.service.classroom;
 
-import com.idealstudy.mvp.infrastructure.ClassroomRepository;
+import com.idealstudy.mvp.infrastructure.repository.ClassroomRepository;
+import com.idealstudy.mvp.infrastructure.repository.LikedRepository;
 import com.idealstudy.mvp.presentation.dto.classroom.ClassroomRequestDto;
 import com.idealstudy.mvp.application.dto.classroom.ClassroomResponseDto;
 
@@ -9,16 +10,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 @Transactional
 public class ClassroomService {
 
     private final ClassroomRepository classroomRepository;
+
+    private final LikedRepository likedRepository;
+
+    @Autowired
+    public ClassroomService(ClassroomRepository classroomRepository,
+                            @Qualifier("likedClassroomRepositoryImpl") LikedRepository likedRepository) {
+        this.classroomRepository = classroomRepository;
+        this.likedRepository = likedRepository;
+    }
 
     public ClassroomResponseDto createClassroom(ClassroomRequestDto request) {
         ClassroomEntity savedClassroom = classroomRepository.save(request.toEntity());
@@ -50,5 +61,16 @@ public class ClassroomService {
             throw new IllegalArgumentException("Classroom not found");
         }
         classroomRepository.deleteById(id);
+    }
+
+    public void updateLiked() {
+
+
+    }
+
+    public int countLiked(Long classroomId) {
+
+        String collection = "classrooms";
+        return likedRepository.countById(classroomId);
     }
 }

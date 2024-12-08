@@ -35,7 +35,13 @@ public class JwtTokenGrepper extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        log.info("jwtPayload is null?: "+ (request.getAttribute("jwtPayload") == null));
+        String rawToken = jwtUtil.getAuthorizationHeader(request);
+        // log.info("Is authorization header NULL? " + rawToken);
+        if(rawToken == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // Attribute 안에 이미 jwtPayload가 있으면 넘기고, 없으면 넣어주자.
         if(request.getAttribute("jwtPayload") == null) {
             

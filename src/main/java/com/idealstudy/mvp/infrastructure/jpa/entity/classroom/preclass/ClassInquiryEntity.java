@@ -12,7 +12,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 @NoArgsConstructor
 public class ClassInquiryEntity extends BaseEntity {
 
@@ -31,4 +30,15 @@ public class ClassInquiryEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "classroom_id")
     private ClassroomEntity classroom;
+
+    @Override
+    public String toString() {
+        return "ClassInquiryEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", visibility=" + visibility +
+                ", classroom=" + classroom +
+                '}';
+    }
 }

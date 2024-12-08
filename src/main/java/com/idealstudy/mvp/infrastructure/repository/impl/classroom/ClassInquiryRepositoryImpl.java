@@ -1,11 +1,11 @@
-package com.idealstudy.mvp.infrastructure.impl.classroom;
+package com.idealstudy.mvp.infrastructure.repository.impl.classroom;
 
 import com.idealstudy.mvp.application.dto.PageRequestDto;
 import com.idealstudy.mvp.application.dto.PageResultDto;
 import com.idealstudy.mvp.application.dto.classroom.preclass.ClassInquiryDto;
 import com.idealstudy.mvp.application.dto.classroom.preclass.ClassInquiryPageResultDto;
 import com.idealstudy.mvp.enums.classroom.Visibility;
-import com.idealstudy.mvp.infrastructure.ClassInquiryRepository;
+import com.idealstudy.mvp.infrastructure.repository.preclass.ClassInquiryRepository;
 import com.idealstudy.mvp.infrastructure.jpa.entity.classroom.preclass.ClassInquiryEntity;
 import com.idealstudy.mvp.infrastructure.jpa.repository.classroom.preclass.ClassInquiryJpaRepository;
 import com.idealstudy.mvp.mapstruct.ClassInquiryMapper;

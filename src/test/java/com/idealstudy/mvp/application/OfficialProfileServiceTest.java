@@ -1,12 +1,8 @@
 package com.idealstudy.mvp.application;
 
 import com.idealstudy.mvp.application.dto.OfficialProfileDto;
-import com.idealstudy.mvp.application.dto.member.TeacherDto;
 import com.idealstudy.mvp.application.service.OfficialProfileService;
-import com.idealstudy.mvp.enums.member.Gender;
-import com.idealstudy.mvp.enums.member.Role;
-import com.idealstudy.mvp.enums.member.SchoolRegister;
-import com.idealstudy.mvp.infrastructure.MemberRepository;
+import com.idealstudy.mvp.infrastructure.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -128,7 +128,7 @@ VALUES
          '98a12345-ad7e-11ef-8e5c-0242ac140002', '98a10847-ad7e-11ef-8e5c-0242ac140002', NULL, NOW());
 
 -- 수업문의 테이블 생성
-CREATE TABLE IF NOT EXISTS inquiry (
+CREATE TABLE IF NOT EXISTS class_inquiry (
     inquiry_id BIGINT AUTO_INCREMENT PRIMARY KEY,                                         title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     visibility ENUM('VISIBLE', 'HIDDEN') NOT NULL,  -- Visibility 값에 맞게 수정
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS inquiry (
 );
 
 -- 더미 데이터 삽입 (20개 예시)
-INSERT INTO inquiry (title, content, visibility, classroom_id, created_by, reg_date)
+INSERT INTO class_inquiry (title, content, visibility, classroom_id, created_by, reg_date)
 VALUES
     ('수학 강의 관련 질문', '이 강의의 내용은 언제 업데이트 되나요?', 'VISIBLE', '98a12345-ad7e-11ef-8e5c-0242ac140002', '관리자', NOW()),
     ('수업 일정 변경', '이번 주 수업 시간이 변경되었나요?', 'VISIBLE', '98a12345-ad7e-11ef-8e5c-0242ac140002', '관리자', NOW()),
@@ -161,3 +161,42 @@ VALUES
     ('학생 지원 프로그램 안내', '학생 지원 프로그램에 대해 알고 싶습니다.', 'VISIBLE', '98a12345-ad7e-11ef-8e5c-0242ac140002', '관리자', NOW()),
     ('졸업 후 진로 상담', '졸업 후 진로 상담이 가능한가요?', 'VISIBLE', '98a12345-ad7e-11ef-8e5c-0242ac140002', '조학생 학부모', NOW()),
     ('수업에 대한 만족도 조사', '수업에 대한 만족도 조사는 언제 이루어지나요?', 'VISIBLE', '98a12345-ad7e-11ef-8e5c-0242ac140002', '조강사', NOW());
+
+-- 수업글
+CREATE TABLE IF NOT EXISTS post (
+	post_id BIGINT NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (post_id)
+);
+
+
+-- 댓글
+CREATE TABLE IF NOT EXISTS comment (
+	comment_id BIGINT NOT NULL AUTO_INCREMENT,
+	content VARCHAR(1000) NOT NULL,
+	visibility ENUM('PUBLIC', 'PRIVATE'),
+	created_by CHAR(36) NOT NULL,
+	reg_date DATETIME(6) NOT NULL,
+	mod_date DATETIME(6),
+	parent_comment_id BIGINT,
+	post_id BIGINT,
+	class_inquiry_id BIGINT,
+	PRIMARY KEY (comment_id),
+	FOREIGN KEY (created_by) REFERENCES member(user_id),
+	FOREIGN KEY (parent_comment_id) REFERENCES comment(comment_id),
+	FOREIGN KEY (post_id) REFERENCES post(post_id),
+	FOREIGN KEY (class_inquiry_id) REFERENCES class_inquiry(inquiry_id)
+);
+
+INSERT INTO comment
+VALUES
+(1, '저희 강의는 최첨단 강의어서 모두가 만족할 수 있습니다.', 'PUBLIC', '98a10847-ad7e-11ef-8e5c-0242ac140002', NOW(), NULL, NULL, NULL, 1),
+(2, '그렇군요, 알겠습니다.', 'PUBLIC', 'c99fd58f-b0ae-11ef-89d8-0242ac140003', NOW(), NULL, 1, NULL, 1),
+(3, '비밀 댓글입니다. 비밀.', 'PRIVATE', 'c99fd58f-b0ae-11ef-89d8-0242ac140003', NOW(), NULL, NULL, NULL, 1);
+
+CREATE TABLE IF NOT EXISTS liked (
+
+	liked_id BIGINT NOT NULL,
+	created_by CHAR(36) NOT NULL,
+	reg_date DATETIME(6) NOT NULL,
+	PRIMARY KEY (liked_id)
+);

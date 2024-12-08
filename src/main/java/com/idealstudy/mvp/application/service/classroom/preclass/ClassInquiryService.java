@@ -5,14 +5,13 @@ import com.idealstudy.mvp.application.dto.classroom.preclass.ClassInquiryPageRes
 import com.idealstudy.mvp.enums.DBErrorMsg;
 import com.idealstudy.mvp.enums.SecurityErrorMsg;
 import com.idealstudy.mvp.enums.classroom.Visibility;
-import com.idealstudy.mvp.infrastructure.ClassInquiryRepository;
+import com.idealstudy.mvp.infrastructure.repository.preclass.ClassInquiryRepository;
+import com.idealstudy.mvp.util.TryCatchServiceTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
 
 @Service
 @Slf4j
@@ -25,20 +24,20 @@ public class ClassInquiryService {
 
     public void create(String title, String content, String classroomId, String writer, Visibility visibility) {
 
-        try {
+        TryCatchServiceTemplate.execute(() -> {
             classInquiryRepository.create(title, content, classroomId, writer, visibility);
-        } catch (RuntimeException e) {
-            log.error(DBErrorMsg.CREATE_ERROR.toString());
-            throw new RuntimeException(DBErrorMsg.CREATE_ERROR.toString());
-        }
+            return null;
+        }, null, DBErrorMsg.CREATE_ERROR);
     }
 
     public ClassInquiryDto findById(Long classInquiryId, String userId) {
 
         ClassInquiryDto dto = classInquiryRepository.findById(classInquiryId);
         if(dto.getVisibility().equals(Visibility.PRIVATE)) {
-
-            if( userId == null || !checkMine(classInquiryId, userId)) {
+            if( userId != null)
+                checkMine(classInquiryId, userId);
+            // 회원 정보 없으면 무조건 거부
+            else {
                 log.error(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
                 throw new SecurityException(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
             }
@@ -48,70 +47,37 @@ public class ClassInquiryService {
 
     public ClassInquiryPageResultDto findListByClassId(String classId, int page) {
 
-        ClassInquiryPageResultDto dto = null;
-        try {
-            dto = classInquiryRepository.findListByClassId(classId, page);
-            return dto;
-        } catch (RuntimeException e) {
-            log.error(DBErrorMsg.SELECT_ERROR.toString());
-            throw new RuntimeException(DBErrorMsg.SELECT_ERROR.toString());
-        }
+        return TryCatchServiceTemplate.execute(() -> classInquiryRepository.findListByClassId(classId, page),
+                null, DBErrorMsg.SELECT_ERROR);
     }
 
     public ClassInquiryPageResultDto findListByMemberId(String userId, int page){
-        ClassInquiryPageResultDto dto = null;
-        try {
-            dto = classInquiryRepository.findListByMemberId(userId, page);
-            return dto;
-        } catch (RuntimeException e) {
-            log.error(DBErrorMsg.SELECT_ERROR.toString());
-            throw new RuntimeException(DBErrorMsg.SELECT_ERROR.toString());
-        }
+
+        return TryCatchServiceTemplate.execute(() -> classInquiryRepository.findListByMemberId(userId, page),
+                null, DBErrorMsg.SELECT_ERROR);
     }
 
 
     public ClassInquiryDto update(Long classInquiryId, String title, String content, String classroomId, String writer,
                                   Visibility visibility) {
 
-        ClassInquiryDto dto = null;
-        try {
-            if( !checkMine(classInquiryId, writer))
-                throw new SecurityException();
-
-            dto = classInquiryRepository.update(classInquiryId, title, content, classroomId, writer, visibility);
-            return dto;
-        } catch (SecurityException e) {
-            log.error(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
-            throw new SecurityException(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
-        } catch (RuntimeException e) {
-            log.error(DBErrorMsg.UPDATE_ERROR.toString());
-            throw new RuntimeException(DBErrorMsg.UPDATE_ERROR.toString());
-        }
+        return TryCatchServiceTemplate.execute(() -> classInquiryRepository.update(classInquiryId, title, content,
+                classroomId, writer, visibility), ()-> checkMine(classInquiryId, writer), DBErrorMsg.UPDATE_ERROR);
     }
 
     public void delete(Long inquiryId, String deleter) {
 
-        try{
-            if( !checkMine(inquiryId, deleter))
-                throw new SecurityException();
-
-            classInquiryRepository.delete(inquiryId);
-        } catch (SecurityException e) {
-            log.error(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
-            throw new SecurityException(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
-        } catch (RuntimeException e) {
-            log.error(DBErrorMsg.DELETE_ERROR.toString());
-            throw new RuntimeException(DBErrorMsg.DELETE_ERROR.toString());
-        }
+        TryCatchServiceTemplate.execute(() -> classInquiryRepository.delete(inquiryId),
+                ()-> checkMine(inquiryId, deleter), DBErrorMsg.DELETE_ERROR);
     }
 
-    private boolean checkMine(Long classInquiryId, String userId) {
+    private void checkMine(Long classInquiryId, String userId) {
 
         ClassInquiryDto dto = classInquiryRepository.findById(classInquiryId);
 
-        if(dto.getCreatedBy().equals(userId))
-            return true;
-
-        return false;
+        if(dto.getCreatedBy().equals(userId)) {
+            log.error(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
+            throw new SecurityException(SecurityErrorMsg.PRIVATE_EXCEPTION.toString());
+        }
     }
 }

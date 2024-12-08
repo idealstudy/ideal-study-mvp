@@ -1,4 +1,4 @@
-package com.idealstudy.mvp.infrastructure;
+package com.idealstudy.mvp.infrastructure.repository;
 
 import com.idealstudy.mvp.infrastructure.jpa.entity.classroom.ClassroomEntity;
 import java.util.List;
