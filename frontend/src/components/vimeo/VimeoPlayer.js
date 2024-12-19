@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Player from "@vimeo/player";
 import styles from "./VimeoPlayer.module.css";
 
