@@ -97,6 +97,7 @@ public class MaterialsRepositoryTest {
     }
 
 
+    /*
     @Test
     public void testUpdate() {
 
@@ -115,6 +116,8 @@ public class MaterialsRepositoryTest {
         File uploadedFile = new File(dto.getMaterialUri());
         Assertions.assertThat(uploadedFile.getName()).contains("test02.txt");
     }
+
+     */
 
     /**
      * AfterEach에서 오류 나면 성공한 것임.

@@ -318,3 +318,19 @@ CREATE TABLE IF NOT EXISTS materials (
 	FOREIGN KEY (student_id) REFERENCES student(student_id),
 	FOREIGN KEY (created_by) REFERENCES member(user_id)
 );
+
+
+CREATE TABLE IF NOT EXISTS attendance (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	classroom_id CHAR(36) NOT NULL,
+	created_by CHAR(36) NOT NULL,
+	reg_date TIMESTAMP NOT NULL,
+	check_out_date TIMESTAMP,
+	mod_date DATETIME(6),
+	del_date DATETIME(6),
+	modified_by CHAR(36),
+	deleted_by CHAR(36),
+	PRIMARY KEY (id),
+	FOREIGN KEY (classroom_id) REFERENCES classroom(classroom_id),
+	FOREIGN KEY (created_by) REFERNECES student(student_id)
+);

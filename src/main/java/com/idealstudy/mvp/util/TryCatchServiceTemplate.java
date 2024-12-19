@@ -28,6 +28,7 @@ public class TryCatchServiceTemplate {
             throw new RuntimeException(errorMsg.toString());
         } catch (Exception e) {
             log.error(e.getMessage() + " : " + errorMsg.toString());
+            e.printStackTrace();
             throw new RuntimeException(errorMsg.toString());
         }
     }
